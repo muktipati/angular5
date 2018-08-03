@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form [formGroup]=form (ngSubmit)="login(form)">
+                <div *ngIf="form.errors" class="alert alert-danger">username or password is invalid</div>
+                <div class="form-group">
+                    <label for="user">userName:</label>
+                    <input type="text" class="form-control" id="user" formControlName='userName'>
+                    <div *ngIf='username.touched && username.invalid' class="alert alert-danger">
+                        <div *ngIf='username.errors.required '>userName is required </div>
+                        <div *ngIf='username.errors.minlength '>userName should be 4 charecters </div>
+                        <div *ngIf='username.errors.cannotContainSpace '>userName should not contain space </div>
+                        <!-- <div *ngIf='username.errors.shouldBeUnique'>userName already taken </div> -->
+                    </div>
+                </div>
+
+                <div class=" form-group ">
+                    <label for="pwd ">Password:</label>
+                    <input type="password" class="form-control " id="pwd " formControlName='password'>
+                    <div *ngIf='password.touched && password.invalid' class="alert alert-danger">
+                        <div *ngIf='password.errors.required '>password is required </div>
+                        <div *ngIf='password.errors.minlength '>password should be 4 charecters </div>
+                    </div>
+                </div>
+
+                <button type="submit " class="btn btn-primary ">Submit</button>
+                <div class="form-group">
+                    <label>subject to Add</label>
+                    <input type="text" class="form-control" (keyup.enter)="addtopics(topics)" #topics>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"></li>
+                </ul>
+            </form>
+
+        </div>
+    </div>
+
+</div>

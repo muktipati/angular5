@@ -1,0 +1,63 @@
+<form #f="ngForm" (ngSubmit)="submit(f)">
+    <div class="container">
+        <div ngModelGroup="Contact">
+            <div class="form-group">
+                <label for="firstName">firstName</label>
+
+                <input id="firstName" required name="firstName" class="form-control" minlength="4" [(ngModel)]="user.firstName" #firstName="ngModel" (change)="log(firstName)">
+                <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                    <div *ngIf="firstName.errors.required"> First Name is required</div>
+                    <div *ngIf="firstName.errors.minlength">FirstName should be minimum {{ firstName.errors.minlength.requiredLength}} characters</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">EmailAddress</label>
+
+                <input id="email" name="email" class="form-control" required minlength="8" [(ngModel)]="user.email" #email="ngModel" pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" (change)="log(email)">
+                <div class="alert alert-danger" *ngIf="email.touched && !email.valid">
+                    <div *ngIf="email.errors.required"> email Address is required</div>
+                    <div *ngIf="email.errors.minlength">email should be minimum {{ email.errors.minlength.requiredLength}} characters</div>
+                    <div *ngIf="email.errors.pattern">pattern doesnot match</div>
+                </div>
+            </div>
+
+            <div class="checkbox">
+                <label>
+                <input type="checkbox" ngModel name="isAccept" required>Accept terms & conditions
+              </label>
+            </div>
+            <div class="form-group">
+                <label for="contactMethod">Contact Name</label>
+                <select ngModel name="contactMethod" id="contactMethod" class="form-control">
+                  <option value="">...select contact name ...</option>
+                  <option *ngFor="let method of contactMethod" [value]="method.id">{{ method.name }}</option>
+                </select>
+            </div>
+            <div class="radio">
+                <label>
+                <input ngModel type="radio" name="contactMethod" value="1">Male
+              </label>
+            </div>
+            <div class="radio">
+                <label>
+                  <input ngModel type="radio" name="contactMethod" value="2">Female
+                </label>
+            </div>
+
+        </div>
+
+
+        <button class="btn btn-primary" [disabled]="!f.valid"> submit</button>
+    </div>
+
+</form>
+<div class="alert alert-danger" *ngIf="unit.touched && !unit.valid">
+    <div *ngIf="unit.errors.required"> unitValue is required</div>
+
+</div>
+<div class="container">
+
+    <div *ngIf="coures.length>0 ; then cousesList else nolist"></div>
+    <ng-template #cousesList>Courses here</ng-template>
+    <ng-template #nolist> NO Courses List here</ng-template>
+</div>
